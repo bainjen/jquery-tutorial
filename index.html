@@ -30,7 +30,20 @@
           color: blue;
           background: black;
         }
-        
+        #box {
+          background: darkgoldenrod;
+          color: white;
+          width: 500px;
+          height: 90px;
+          padding: 40px;
+          text-align: center;
+        }
+        #box2 {
+          background: red;
+          width: 100px;
+          height: 100px;
+          position: relative;
+        }
       </style>
   </head>
   <body>
@@ -117,8 +130,31 @@
 
         <ul id="users"></ul>
 
+        <button id="btnFadeOut">fade out</button>
+        <button id="btnFadeIn">fade in</button>
+        <button id="btnFadeTog">fade toggle</button>
+
+        <br>
+
+        <button id="btnSlideUp">slide up</button>
+        <button id="btnSlideDown">slide down</button>
+        <button id="btnSlideTog">slide toggle</button>
+        <button id="btnStop">stop</button>
+
       </div>
 
+      <div id='box'>
+        <h1>hello again, world</h1>
+      </div>
+
+      <hr>
+      <button id="moveLeft">move left</button>
+      <button id="moveRight">move right</button>
+      <button id="moveAround">move around</button>
+
+      <div id="box2">
+
+      </div>
     </div>
 
     <script>
@@ -275,9 +311,82 @@
         console.log(newArr);
         $.each(newArr, function(i, val){
           $('#users').append('<li'+val.innerHTML+'</li>')
+        });
+
+        $('#btnFadeOut').click(function(){
+          $('#box').fadeOut(3000, function(){
+            $('#btnFadeOut').text('It is gone');
+          });
         })
 
-     
+        $('#btnFadeIn').click(function(){
+          $('#box').fadeIn(3000);
+        });
+
+       $('#btnFadeTog').click(function(){
+          $('#box').fadeToggle(1000);
+        });
+         
+      
+        $('#btnSlideDown').click(function(){
+          $('#box').slideDown(1000);
+        });
+
+        $('#btnSlideUp').click(function(){
+          $('#box').slideUp(1000);
+        });
+
+        $('#btnSlideTog').click(function(){
+          $('#box').slideToggle(1000);
+        });
+
+        $('btnStop').click(function(){
+          $('#box').stop();
+        })
+
+        $('#moveRight').click(function(){
+          $('#box2').animate({
+            left: 500,
+            height: '300px',
+            width: '300px',
+            opacity: '0.5'
+          });
+        })
+
+        $('#moveLeft').click(function(){
+          $('#box2').animate({
+            left: 0,
+            height: '100px',
+            width: '100px',
+            opacity: '1'
+          });
+        });
+
+        $('#moveAround').click(function(){
+          var box = $('#box2');
+          box.animate({
+            left: 300
+          })
+          box.animate({
+            top: 300
+          })
+          box.animate({
+            top: 300,
+            left: 0
+          })
+          box.animate({
+            left: 0,
+            top: 0,
+          })
+        })
+
+
+
+
+      
+
+
+
 
       });
     </script>   
