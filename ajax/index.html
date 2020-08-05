@@ -155,10 +155,63 @@
       <div id="box2">
 
       </div>
+
+      <div id="result">
+        <ul id='users'></ul>
+        <h3>Add Post</h3>
+        <form id="postForm" action='https://jsonplaceholder.typicode.com/posts'>
+        <input type ='text' id='title' placeholder="Title">
+        <br>
+        <textarea placeholder="Body" id="body"></textarea> <br>
+        <input type="submit" value="submit">
+        </form>
+      </div>
     </div>
 
     <script>
       $(document).ready(function(){
+
+    
+        //AJAX
+
+        $.ajax({
+          method: 'GET',
+          url: 'https://jsonplaceholder.typicode.com/posts',
+          dataType: 'json'
+        }).done(function(data){
+          console.log(data);
+          $.map(data, function(post, i){
+            $('#result').append('<h3>' + post.title +  '</h3><p>' +post.body+ '</h3>')
+          })
+        });
+
+
+
+
+        // $('#result').load('test.html', function(
+        //   responseTxt, statusTxt, xhr) {
+        //     if (statusTxt == 'success') {
+        //       alert('it went fine');
+        //     } else if(statusTxt == 'error') {
+        //       alert("Error: " + xhr.statusText );
+        //     }
+        //   }
+        // );
+
+        // $.get('test.html', function(data){
+        //   $('#result').html(data);
+        // })
+
+        // $.getJSON('file-name.json', function(data) {
+        //   $.each(data, function(i, user){
+        //     ('ul#users').append('<li>' +user.firstName+'</li>');
+        //   })
+        // })
+
+
+
+
+
         // $('h1').hide();
         // $('h1.heading2').hide()
         // $('.heading2').hide();
@@ -380,6 +433,20 @@
           })
         })
 
+        $('#postForm').submit(function(e){
+          e.preventDefault();
+
+          let title = $('#title').val();
+          let body = $('#body').val();
+          let url = $(this).attr('action');
+
+          $.post(url, {title:title, body:body}).
+            done(function(data){
+              console.log('post saved');
+              console.log(data);
+            });
+        })
+        
 
 
 
